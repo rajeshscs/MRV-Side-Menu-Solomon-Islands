@@ -109,9 +109,19 @@ def get_menulist():
 					 		m.route = m.sub_menu_doc.replace(" ", "-").lower()
 					 if m.sub_menu_type=="Report":
 					 	m.route = "query-report/"+m.sub_menu_doc
-	side_menu_settings = frappe.get_single('Side Menu Settings')
-	side_menu_html = frappe.render_template("templates/side_menu.html",{"menulist":menu_items_list,"user_info":frappe. get_user().doc,"side_menu_settings":side_menu_settings})
-	return {"menu":menu_items_list,"enable_detail_left_menu":enable_detail_left_menu,"enable_list_left_menu":enable_list_left_menu,"template_html":side_menu_html,"side_menu_settings":side_menu_settings}
+	side_menu_type = frappe.db.get_single_value("Side Menu Settings","select_side_menu_type")
+	if side_menu_type == 'Side Menu':
+		side_menu_settings = frappe.get_single('Side Menu Settings')
+		side_menu_html = frappe.render_template("templates/side_menu1.html",{"menulist":menu_items_list,"user_info":frappe. get_user().doc,"side_menu_settings":side_menu_settings})
+		return {"menu":menu_items_list,"enable_detail_left_menu":enable_detail_left_menu,"enable_list_left_menu":enable_list_left_menu,"template_html":side_menu_html,"side_menu_settings":side_menu_settings}
+	elif side_menu_type == 'Drill Down Menu':
+		side_menu_settings = frappe.get_single('Side Menu Settings')
+		side_menu_html = frappe.render_template("templates/drill_down_menu.html",{"menulist":menu_items_list,"user_info":frappe. get_user().doc,"side_menu_settings":side_menu_settings})
+		return {"menu":menu_items_list,"enable_detail_left_menu":enable_detail_left_menu,"enable_list_left_menu":enable_list_left_menu,"template_html":side_menu_html,"side_menu_settings":side_menu_settings}
+	elif side_menu_type == 'Side Menu With Tab':
+		side_menu_settings = frappe.get_single('Side Menu Settings')
+		side_menu_html = frappe.render_template("templates/drill_down_tab.html",{"menulist":menu_items_list,"user_info":frappe. get_user().doc,"side_menu_settings":side_menu_settings})
+		return {"menu":menu_items_list,"enable_detail_left_menu":enable_detail_left_menu,"enable_list_left_menu":enable_list_left_menu,"template_html":side_menu_html,"side_menu_settings":side_menu_settings}
 
 def get_permitted_docs_for_role(role):
 	perms = frappe.get_all('DocPerm', fields='parent', filters=dict(role=role))
@@ -137,3 +147,28 @@ def get_permitted_pages_reports(role, parenttype):
 	if custom_perms:
 		perms += custom_perms
 	return perms
+
+
+# Kishore
+@frappe.whitelist(allow_guest=True)
+def get_all_records(doctype, limit_start=0, limit_page_length=10):
+    try:
+        data = frappe.get_list(doctype, fields=["*"], start=limit_start, page_length=limit_page_length)
+        return data
+    except Exception as e:
+        frappe.log_error(f"Error in get_all_records for {doctype}", e)
+        return []
+
+@frappe.whitelist(allow_guest=True)
+def get_list():
+	data = frappe.get_list('Project', fields=["*"])
+	for i in data:
+		x = i.columns
+		return x
+
+
+
+@frappe.whitelist(allow_guest=True)
+def get_doctype():
+	side_menu_type = frappe.db.get_single_value("Side Menu Settings","select_side_menu_type")
+	return side_menu_type

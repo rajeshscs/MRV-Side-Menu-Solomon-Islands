@@ -3,7 +3,7 @@
 }
 
 .main-section .navbar.navbar-expand.sticky-top .container #navbar-breadcrumbs{
-    margin-left: 95px !important;
+    margin-left: 195px !important;
 }
 
 .col-lg-2.layout-side-section,.page-title .sidebar-toggle-btn{
@@ -12,19 +12,11 @@
 .container-xl, .container-lg, .container-md, .container-sm, .container {
     max-width: 100%;
 }
-.col.layout-main-section-wrapper,
-.col-md-4.col-sm-6.col-xs-8.page-title,
-.navbar .navbar-brand,
-.col-md-12.layout-main-section-wrapper{
-    margin-left: 95px;
-}
-.col-md-12.layout-main-section-wrapper{
-    max-width: calc(100% - 95px);
-}
+
+
 .main-sidebar .sidebar-menu {
     background: #267db9 !important;
     font-family: 'Poppins', sans-serif;
-    min-width: 95px !important;    padding: 0;width: 95px !important;margin-top: 0 !important;
     left: 0 !important;    z-index: 999999;
 }
 .main-sidebar .sidebar-menu>li {
@@ -37,7 +29,7 @@
     position: relative;
 }
 .main-sidebar .sidebar-menu>li>a {
-    padding: 8px;
+    padding: 7px 0px;
     display: block;
     color: #fff;
     text-align: center;
@@ -47,10 +39,9 @@
 .main-sidebar .sidebar-menu > li > a span {
     font-size: 12px !important;
     font-weight: 500;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis; */
     overflow: hidden;
-    white-space: nowrap;
-    text-align: center;
+    /* white-space: nowrap; */
     /* line-height: 20px; */
     display: block;
     letter-spacing: 1px;
@@ -85,7 +76,7 @@ li.treeview.drop-down:hover .treeview-menu{
 }
 .treeview-head {
     /* text-align: center; */
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #f4f5f6;;
     font-size: 15px;
     padding: 10px;
     color: #184482;

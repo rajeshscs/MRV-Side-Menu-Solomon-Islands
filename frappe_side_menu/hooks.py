@@ -16,20 +16,20 @@ app_include_js = "/assets/frappe_side_menu/js/frappe_side_menu.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/frappe_side_menu/css/frappe_side_menu.css"
-# web_include_js = "/assets/frappe_side_menu/js/frappe_side_menu.js"
+# web_include_js = "/assets/frappe_side_menu/js/detail.js"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "frappe_side_menu/public/scss/website"
 
 # include js, css files in header of web form
-# webform_include_js = {"doctype": "public/js/doctype.js"}
+# webform_include_js = {"*": "public/js/detail.js"}
 # webform_include_css = {"doctype": "public/css/doctype.css"}
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+# doctype_js = {"*" : "public/js/detail.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}

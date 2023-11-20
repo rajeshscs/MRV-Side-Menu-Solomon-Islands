@@ -7,6 +7,11 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "select_side_menu_type",
+  "column_break_oaiz3",
+  "set_width",
+  "column_break_fs8js",
+  "column_break_j1ded",
   "logo",
   "application_logo",
   "column_break_wisj",
@@ -140,12 +145,36 @@
    "fieldname": "logo_bottom_border_color",
    "fieldtype": "Color",
    "label": "Logo Bottom Border Color"
+  },
+  {
+   "fieldname": "select_side_menu_type",
+   "fieldtype": "Select",
+   "label": "Select Side Menu Type",
+   "options": "Side Menu\nDrill Down Menu\nSide Menu With Tab"
+  },
+  {
+   "depends_on": "eval:doc.select_side_menu_type==\"Drill Down Menu\"",
+   "fieldname": "set_width",
+   "fieldtype": "Int",
+   "label": "Set width"
+  },
+  {
+   "fieldname": "column_break_oaiz3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_fs8js",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_j1ded",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-10-25 13:15:30.318847",
+ "modified": "2023-11-18 17:20:39.656044",
  "modified_by": "Administrator",
  "module": "Frappe Side Menu",
  "name": "Side Menu Settings",
