@@ -156,7 +156,7 @@ def get_all_records(doctype, limit_start=0, limit_page_length=10):
         data = frappe.get_list(doctype, fields=["*"], start=limit_start, page_length=limit_page_length)
         return data
     except Exception as e:
-        frappe.log_error(f"Error in get_all_records for {doctype}", e)
+        # frappe.log_error(f"Error in get_all_records for {doctype}", e)
         return []
 
 @frappe.whitelist(allow_guest=True)

@@ -1,7 +1,7 @@
 <aside class="main-sidebar" style="z-index: 1040;">
     <section class="sidebar">   
         <ul class="sidebar-menu"  style="margin-bottom: 0px !important; left: -40px !important; height: 100%; position: fixed;min-width: 95px !important;">
-            <li class="app-logo">
+            <li class="app-logo" style=" display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0;">
                 <a onclick="gotodashboard()" class="logo" style="width: 95px;"> 
                     {% if side_menu_settings.application_logo %}
                         <img src="{{side_menu_settings.application_logo}}" style="height:43px;">
@@ -171,9 +171,13 @@
                 {% endif %}
             }
             .main-sidebar .sidebar-menu{
+                overflow-y: scroll;
                 {% if side_menu_settings.side_bar_background_color %}
                     background:{{side_menu_settings.side_bar_background_color}} !important;
                 {% endif %}
+            }
+            .main-sidebar .sidebar-menu::-webkit-scrollbar {
+                display: none;
             }
             .main-sidebar .sidebar-menu>li:not(.app-logo):hover>a,.user-info{
                 {% if side_menu_settings.side_bar_hover_color %}

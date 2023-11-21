@@ -49,10 +49,10 @@
               <ul class="sidebar-menu" style="min-width:150px !important; padding: 0; width: {{ side_menu_settings.set_width }}px !important; margin-top: 0 !important;"> 
             {% endif %}
 
-                <li class="app-logo" style="width: 100% !important;">
-                    <a onclick="gotodashboard" class="logo" style="max-width: 100% !important;">
+            <li class="app-logo" style=" display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0;">
+                <a onclick="gotodashboard()" class="logo" style="max-width: 100% !important;">
                         {% if side_menu_settings.application_logo %}
-                            <img src="{{side_menu_settings.application_logo}}" style="height: 43px; margin-right: 54%;">
+                            <img src="{{side_menu_settings.application_logo}}" style="height: 43px;">
                         {% else %}
                             <img src="" alt="no-logo" style="height: 43px;">
                         {% endif %}
@@ -138,17 +138,6 @@
 
             <style>
 
-                /* .col.layout-main-section-wrapper,
-                .col-md-4.col-sm-6.col-xs-8.page-title,
-                .navbar .navbar-brand,
-                .col-md-12.layout-main-section-wrapper{
-                    margin-left: 295px;
-                } */
-                /* .col-md-12.layout-main-section-wrapper{
-                    max-width: calc(100% - 95px);
-                } */
-              
-
 
 
 
@@ -195,9 +184,13 @@
                     {% endif %}
                 }
                 .main-sidebar .sidebar-menu{
+                    overflow-y: scroll;
                     {% if side_menu_settings.side_bar_background_color %}
                         background:{{side_menu_settings.side_bar_background_color}} !important;
                     {% endif %}
+                }
+                .main-sidebar .sidebar-menu::-webkit-scrollbar{
+                    display: none;
                 }
                 .main-sidebar .sidebar-menu>li:not(.app-logo):hover>a,.user-info{
                     {% if side_menu_settings.side_bar_hover_color %}
