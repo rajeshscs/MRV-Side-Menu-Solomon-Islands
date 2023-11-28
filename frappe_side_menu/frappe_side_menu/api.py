@@ -166,9 +166,15 @@ def get_list():
 		x = i.columns
 		return x
 
-
-
 @frappe.whitelist(allow_guest=True)
 def get_doctype():
 	side_menu_type = frappe.db.get_single_value("Side Menu Settings","select_side_menu_type")
 	return side_menu_type
+
+
+@frappe.whitelist(allow_guest=True)
+def set_default_route():
+	route = frappe.db.get_single_value("Side Menu Settings","route_logo")
+	frappe.log_error("route", route)
+	frappe.local.response['home_page'] ="/app/"+route
+

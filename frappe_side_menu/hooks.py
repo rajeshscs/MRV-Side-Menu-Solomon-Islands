@@ -14,6 +14,8 @@ app_license = "MIT"
 app_include_css = ["https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600&display=swap","/assets/frappe_side_menu/css/frappe_side_menu.css","/assets/frappe_side_menu/css/ui-icons-regular.css"]
 app_include_js = "/assets/frappe_side_menu/js/frappe_side_menu.js"
 
+on_session_creation  = "frappe_side_menu.frappe_side_menu.api.set_default_route"
+
 # include js, css files in header of web template
 # web_include_css = "/assets/frappe_side_menu/css/frappe_side_menu.css"
 # web_include_js = "/assets/frappe_side_menu/js/detail.js"

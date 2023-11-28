@@ -220,7 +220,17 @@
                margin-bottom: -8px;
                font-weight: 800;
             }
-            
+            .widget-group .grid-col-2 {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    -moz-column-gap: 15px;
+                    width: 93%;
+                    column-gap: 15px;
+                    row-gap: 15px;
+                    align-items: center;
+                    margin-left: 7%;
+                }
+
          </style>
          <div class="menu-content">
             {% if side_menu_settings.set_width %}
@@ -258,7 +268,7 @@
             {% for u in menulist %}
                <li class="treeview drop-down" id="treeview">
                   <a class="menu" onclick="toggleSubMenu(this)" style="max-width: 100%;">
-                     <span style="font-size: 15px; text-align: left !important;">
+                     <span style="color: #1f272e; text-align: left !important; margin-top: 10px !important; letter-spacing: 0px !important;">
                         <i class="{% if u.menu_icon %}{{u.menu_icon}}{% else %}fa fa-bar-chart{% endif %} navbar-icon" style="padding: 5px;"></i>
                         {{ u.label }}
                         <!-- Add a line break to place the right-angle arrow on the next line -->
@@ -306,7 +316,6 @@
             }
         
             setRecordListContainerStyles();
-            filterEvent();
             
             
         </script>
@@ -349,12 +358,13 @@
             .routeLink{
                float: left;
                width: 100%;
+               font-size: 13px;
             }
             .menu {
             text-decoration: none;
             display: block;
             padding: 10px;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #f4f5f6;
             color: #333;
             transition: background-color 0.3s; /* Add a transition for smooth color change */
             }
@@ -378,9 +388,13 @@
             {% endif %}
             }
             .main-sidebar .sidebar-menu{
-            {% if side_menu_settings.side_bar_background_color %}
-            background:{{side_menu_settings.side_bar_background_color}} !important;
-            {% endif %}
+               {% if side_menu_settings.side_bar_background_color %}
+               background:{{side_menu_settings.side_bar_background_color}} !important;
+               {% endif %}
+
+            }
+            .main-sidebar .sidebar-menu::-webkit-scrollbar {
+                display: none;
             }
             .main-sidebar .sidebar-menu>li:not(.app-logo):hover>a,.user-info{
             {% if side_menu_settings.side_bar_hover_color %}
@@ -388,6 +402,7 @@
             {% endif %}
             }
             .main-sidebar .sidebar-menu>li>a{
+               height: 49.49;
             {% if side_menu_settings.side_bar_text_color %}
             color:{{side_menu_settings.side_bar_text_color}} !important;
             {% endif %}

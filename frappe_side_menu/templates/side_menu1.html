@@ -162,6 +162,16 @@
                 ul.submenu {
                     padding-left: 0 !important;
                 }
+                .widget-group .grid-col-2 {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    -moz-column-gap: 15px;
+                    width: 93%;
+                    column-gap: 15px;
+                    row-gap: 15px;
+                    align-items: center;
+                    margin-left: 7%;
+                }
             .app-logo .logo{
                 {% if side_menu_settings.logo_background_color %}
                     background:{{side_menu_settings.logo_background_color}};

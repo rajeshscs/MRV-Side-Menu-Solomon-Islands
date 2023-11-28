@@ -64,7 +64,6 @@
                             <span style="font-size: 15px; text-align: left !important;">
                                 <i class="{% if u.menu_icon %}{{u.menu_icon}}{% else %}fa fa-bar-chart{% endif %} navbar-icon" style="padding: 5px;"></i>
                                 {{ u.label }}
-                                <!-- Add a line break to place the right-angle arrow on the next line -->
                                 <i class="fa fa-angle-right" aria-hidden="true" style="float: right; font-size: 18px; margin-right: 5px;"></i>
                             </span>
                         </a>
@@ -173,6 +172,16 @@
             
                 .treeview.active .submenu {
                     max-height: 1000px;
+                }
+                .widget-group .grid-col-2 {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    -moz-column-gap: 15px;
+                    width: 93%;
+                    column-gap: 15px;
+                    row-gap: 15px;
+                    align-items: center;
+                    margin-left: 7%;
                 }
 
                 .app-logo .logo{

@@ -15,6 +15,8 @@
   "logo",
   "application_logo",
   "column_break_wisj",
+  "route_logo",
+  "column_break_syomw",
   "logo_background_color",
   "column_break_wj2v",
   "logo_bottom_border_color",
@@ -169,12 +171,21 @@
   {
    "fieldname": "column_break_j1ded",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "route_logo",
+   "fieldtype": "Data",
+   "label": "Route Logo"
+  },
+  {
+   "fieldname": "column_break_syomw",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-11-18 17:20:39.656044",
+ "modified": "2023-11-25 14:02:46.848800",
  "modified_by": "Administrator",
  "module": "Frappe Side Menu",
  "name": "Side Menu Settings",
