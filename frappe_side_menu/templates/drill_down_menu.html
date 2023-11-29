@@ -120,7 +120,7 @@
         if (isSubMenuOpen) {
             submenu.style.maxHeight = submenu.scrollHeight + "px";
             element.querySelector("i.fa-angle-right").classList.replace("fa-angle-right", "fa-angle-down");
-            element.style.backgroundColor = "{{ side_menu_settings.side_bar_hover_color }}";
+            // element.style.backgroundColor = "{{ side_menu_settings.side_bar_hover_color }}";
         } else {
             submenu.style.maxHeight = "0px";
             element.querySelector("i.fa-angle-down").classList.replace("fa-angle-down", "fa-angle-right");
@@ -155,7 +155,7 @@
                     text-decoration: none;
                     display: block;
                     padding: 10px;
-                    border-bottom: 1px solid #ccc;
+                    border-bottom: 1px solid #e8eaeb;
                     color: #333;
                     transition: background-color 0.3s; /* Add a transition for smooth color change */
                 }
@@ -207,6 +207,8 @@
                     {% endif %}
                 }
                 .main-sidebar .sidebar-menu>li>a{
+                    height: 48.49;
+                    padding: 8.5px 0px;
                     {% if side_menu_settings.side_bar_text_color %}
                         color:{{side_menu_settings.side_bar_text_color}} !important;
                     {% endif %}

@@ -319,24 +319,29 @@ $(document).ready(function() {
 
 
     $(document).on("form-refresh", function(e, frm) {
-        frappe.call({
-            method: "frappe_side_menu.frappe_side_menu.api.get_doctype",
-            callback: function(response) {
-                msg = response.message
-                if(msg == "Side Menu With Tab"){
-                    hidemainMenu();
-                    // console.log("Setting", response.message);
+        // $('[id="filterTab"]').click()
+        if(frm.meta.issingle != 1){
+            frappe.call({
+                method: "frappe_side_menu.frappe_side_menu.api.get_doctype",
+                callback: function(response) {
+                    msg = response.message
+                    if(msg == "Side Menu With Tab"){
+                        hidemainMenu();
+                    }
+                   
                 }
-               
-            }
-        });
-
-        sideMenu_route = frappe.get_route()
-        // if(sideMenu_route != ['Form', 'DocType']){
-            
-        // }
-        handleFormRefresh(frm);
-        filterEvent();
+            });
+            sideMenu_route = frappe.get_route()
+            handleFormRefresh(frm);
+            filterEvent();
+    
+        }else if (frm.meta.issingle === 1) {
+            console.log("Inside else if block for issingle === 1");
+            $('[id="treeview"]').css("display", "contents");
+            $('[id="recordListContainer"]').css("display", "none");
+            $('[class="search"]').css("display", "none");
+            $('[id="menuTab"]').click()
+        }
     });
 
     document.addEventListener('click', function (event) {

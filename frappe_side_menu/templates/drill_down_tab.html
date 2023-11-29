@@ -236,8 +236,8 @@
             {% if side_menu_settings.set_width %}
             <ul class="sidebar-menu" id="sideMenu" style="overflow-x: hidden; min-width:150px !important; padding: 0; width: {{ side_menu_settings.set_width }}px !important; margin-top: 0 !important;">
             {% endif %}
-            <li class="app-logo"style=" display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0;">
-               <a onclick="gotodashboard()" class="logo" style="border-right: 1px solid #f4f5f6 !important; border-bottom: 1px solid #f4f5f6; max-width: 100% !important;">
+            <li class="app-logo"style=" display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0; pad">
+               <a onclick="gotodashboard()" class="logo" style="padding: 7.8px 0px !important; border-bottom: 1px solid #f4f5f6; max-width: 100% !important;">
                {% if side_menu_settings.application_logo %}
                <img src="{{side_menu_settings.application_logo}}" style="height: 43px;">
                {% else %}
@@ -263,7 +263,7 @@
              </div>
              <!-- Add this button at the end of your HTML content -->
 
-             <!-- <div class="mainMenu"> -->
+             <div class="main-menu" id="main-menu" style="overflow-y: scroll;" onresize="setRecordListContainerStyles();">
 
             {% for u in menulist %}
                <li class="treeview drop-down" id="treeview">
@@ -298,7 +298,7 @@
                   </ul>
                </li>
             {% endfor %}
-         <!-- </div> -->
+         </div>
             <!-- Create a container for the list of record names -->
             <div id="recordListContainer" style="overflow-y: scroll;" onresize="setRecordListContainerStyles();">
                <ul id="recordList"></ul>
@@ -316,7 +316,17 @@
             }
         
             setRecordListContainerStyles();
-            
+
+
+            function setMainmenuContainer() {
+                var mainMenuContainer = document.getElementById('main-menu');
+                var windowHeight = window.innerHeight;
+        
+                mainMenuContainer.style.setProperty('--container-height', windowHeight - 133 + 'px');
+            }
+        
+            setMainmenuContainer();
+
             
         </script>
       <style>
@@ -347,6 +357,15 @@
             display: block;
             height: var(--container-height);
          }
+         #main-menu {
+            overflow-y: auto;
+            /* overflow-y: scroll; */
+            --scrollbar-track-color: #fff;
+            --scrollbar-thumb-color: #c0c6cc;
+            display: contents;
+            height: var(--container-height);
+         }
+
             .sidebar-menu {
             margin-bottom: 0px !important;
             height: 100%;
@@ -402,7 +421,7 @@
             {% endif %}
             }
             .main-sidebar .sidebar-menu>li>a{
-               height: 49.49;
+               height: 48.49;
             {% if side_menu_settings.side_bar_text_color %}
             color:{{side_menu_settings.side_bar_text_color}} !important;
             {% endif %}
@@ -456,7 +475,7 @@
             {%else%}
             background-color: #fff;
             {%endif%}
-            border-right: 1px solid #ddd;
+            border-right: 1px solid {{side_menu_settings.logo_bottom_border_color}};
             }
          </style>
       </section>

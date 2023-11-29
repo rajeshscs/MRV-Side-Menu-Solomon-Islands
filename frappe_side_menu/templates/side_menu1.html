@@ -1,8 +1,8 @@
 <aside class="main-sidebar" style="z-index: 1040;">
     <section class="sidebar">   
         <ul class="sidebar-menu"  style="margin-bottom: 0px !important; left: -40px !important; height: 100%; position: fixed;min-width: 95px !important;">
-            <li class="app-logo" style=" display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0;">
-                <a onclick="gotodashboard()" class="logo" style="width: 95px;"> 
+            <li class="app-logo" style="display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0;">
+                <a onclick="gotodashboard()" class="logo" style="width: 95px; padding: 8.5px 0px;"> 
                     {% if side_menu_settings.application_logo %}
                         <img src="{{side_menu_settings.application_logo}}" style="height:43px;">
                     {% else %}
@@ -94,7 +94,7 @@
             <li>
                 <a class="menu" id="/app/{{u.route}}" onclick="go_to_page(this)">                         
                     <i class="{%if u.menu_icon%}{{u.menu_icon}}{%else%}fa fa-address-card{%endif%} navbar-icon"></i>{% if center_menu==1 %}<br>  {% endif %}                       
-                    <span style="font-size: 15px;">{{u.label}}</span>                     
+                    <span style="font-size: 15px;" id="menu_text">{{u.label}}</span>                     
                 </a>
             </li>
            
@@ -251,7 +251,7 @@
                     {%else%}
                     background-color: #fff;
                     {%endif%}
-                    border-right: 1px solid #ddd;
+                    border-right: 1px solid {{side_menu_settings.logo_bottom_border_color}};
                   }
         </style>
     </section>
