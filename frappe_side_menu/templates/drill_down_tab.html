@@ -2,6 +2,7 @@
    <aside class="main-sidebar" style="z-index: 1040;">
       <section class="sidebar">
          <style>
+
             @import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
             p, a, h1,h2,h3,h4,h5,h6,li{
                font-family: Inter;
@@ -10,7 +11,7 @@
             .col-md-4.col-sm-6.col-xs-8.page-title,
             .navbar .navbar-brand,
             .col-md-12.layout-main-section-wrapper {
-            margin-left: {{ side_menu_settings.set_width }}px !important;
+            margin-left: {{ side_menu_settings.set_width }}px;
             }
             .main-sidebar .sidebar-menu {
             background: #26b979 !important;
@@ -20,7 +21,7 @@
             width: 95px !important;
             margin-top: 0 !important;
             left: 0 !important;
-            z-index: 999999;
+            z-index: 1024;
                }
                .sidebar--menu{
                   overflow-x: hidden;
@@ -32,9 +33,9 @@
                margin-top: 0 !important;
                border: 1px solid #0000001a;
             }
-            .navbar {
+            /* .navbar {
             margin-left: 95px;
-            }
+            } */
             .submenu{
             background-color: {{side_menu_settings.sub_menu_background_color}};
             color: {{side_menu_settings.sub_menu_text_color}};
@@ -135,12 +136,12 @@
                background-color: #f9fafa;
             }
             #recordList .listItem.active {
-               background-color: #f4f5f6; 
+               background-color: #f4f5f6;
                color: #000;
             }
             #recordList .listItem.selected {
-               background-color: #f4f5f6; 
-               color: #000; 
+               background-color: #f4f5f6;
+               color: #000;
                /* border-left: 4px solid #7f7f7fbf; */
             }
 
@@ -173,8 +174,8 @@
 
             /* Search */
             .search-input::placeholder {
-               color: #404040;   
-               
+               color: #404040;
+
             }
             .search-input {
                width: -webkit-fill-available;
@@ -206,11 +207,11 @@
                color: #555; /* Adjust the color as needed */
                font-size: 18px; /* Adjust the size as needed */
             }
-            .layout-main{  
+            .layout-main{
                overflow-x: auto;
                height: 77vh;
             }
-           
+
             .start_date{
                font-size: 10px;
                margin-left: 5px;
@@ -233,13 +234,18 @@
 
          </style>
          <div class="menu-content">
+
             {% if side_menu_settings.set_width %}
             <ul class="sidebar-menu" id="sideMenu" style="overflow-x: hidden; min-width:150px !important; padding: 0; width: {{ side_menu_settings.set_width }}px !important; margin-top: 0 !important;">
             {% endif %}
-            <li class="app-logo"style=" display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0; pad">
-               <a onclick="gotodashboard()" class="logo" style="padding: 7.8px 0px !important; border-bottom: 1px solid #f4f5f6; max-width: 100% !important;">
+            <li class="app-logo"style=" display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0;">
+               <a  class="logo" style="border-right: 1px solid #f4f5f6 !important; border-bottom: 1px solid #f4f5f6; max-width: 100% !important;">
                {% if side_menu_settings.application_logo %}
-               <img src="{{side_menu_settings.application_logo}}" style="height: 43px;">
+              
+               <img onclick="gotodashboard()" src="{{side_menu_settings.application_logo}}" style="height: 43px;">
+               <button class="sidebar-toggle-button" style="display: flex; margin: 10px 11px 0px -30px; transform: 1s; float: right; border: none; outline: none; background: none; font-size: 14px;" onclick="toggleSidebar()">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+              </button>
                {% else %}
                <img src="" alt="no-logo" style="height: 43px;">
                {% endif %}
@@ -263,7 +269,7 @@
              </div>
              <!-- Add this button at the end of your HTML content -->
 
-             <div class="main-menu" id="main-menu" style="overflow-y: scroll;" onresize="setRecordListContainerStyles();">
+             <!-- <div class="mainMenuList" style="overflow-y: scroll; height: calc(100vh - 132px);"> -->
 
             {% for u in menulist %}
                <li class="treeview drop-down" id="treeview">
@@ -296,41 +302,138 @@
                         {% endfor %}
                      {% endfor %}
                   </ul>
+                  
                </li>
             {% endfor %}
-         </div>
+         <!-- </div> -->
             <!-- Create a container for the list of record names -->
             <div id="recordListContainer" style="overflow-y: scroll;" onresize="setRecordListContainerStyles();">
                <ul id="recordList"></ul>
            </div>
-   
-         
+
+
          </div>
-        
+
         <script>
+         
+            var menuButton = document.createElement('button');
+            menuButton.innerHTML = '<i class="fa fa-bars"  onclick="toggleSidebar()"></i>';
+            menuButton.className = 'custom-menu-button';
+            var logoImage = document.createElement('img');
+            logoImage.src = '{{side_menu_settings.application_logo}}';
+            logoImage.style.height = '43px';
+            logoImage.style.margin = '0px -80px 0px 53px';
+
+            var container = document.querySelector('.container');
+            container.insertBefore(logoImage, container.firstChild);
+            container.insertBefore(menuButton, container.firstChild);
+            var is_loaded = 0;
+            var margin_left_value = 0;
+            
+            function toggleSidebar() {
+               var list_id_name = document.getElementById(`page-List/${frappe.get_route()[1]}/List`);
+               var form_id_name = document.getElementById(`page-${frappe.get_route()[1]}`);
+               var x = document.getElementById("sideMenu");
+               var mainSection = $(".layout-main-section-wrapper");
+
+               if (x.style.display === "none" || is_loaded === 0){
+                  x.style.display = "block";
+                  margin_left_value = "{{ side_menu_settings.set_width }}px";
+                  is_loaded = 1;
+               } else {
+                  x.style.display = "none";
+                  margin_left_value = "0px";
+                  is_loaded = 0;
+               }
+
+               $(".layout-main-section-wrapper").css("margin-left", margin_left_value);
+            }
+
+            // if((list_id_name.id).includes(`${frappe.get_route()[1]}`)){
+            //    var x = document.getElementById("sideMenu");
+            //    var mainSection = list_id_name.getElementsByClassName("layout-main-section-wrapper")[0];
+            //    var pageTitle = list_id_name.getElementsByClassName("page-title")[0];
+            //    var navbar = list_id_name.getElementsByClassName("navbar")[0];
+            //    console.log('Sidebar display:', x.style.display);
+
+            //    if (x.style.display === "none") {
+
+            //       x.style.display = "block";
+            //       margin_left_value ="{{ side_menu_settings.set_width }}px";
+            //       // mainSection.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //       // pageTitle.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //       // navbar.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //    } else {
+            //       x.style.display = "none";
+            //       is_loaded=1;
+            //       margin_left_value ="0px";
+            //       // mainSection.style.marginLeft = "0";
+            //       // pageTitle.style.marginLeft = "0";
+            //       // navbar.style.marginLeft = "0";
+            //    }
+            //    if(is_loaded==1){
+            //       mainSection.style.marginLeft = margin_left_value;
+            //    }
+               
+            // }
+            
+            // if((form_id_name.id).includes(frappe.get_route()[1])) {
+               
+            //    setTimeout(()=>{
+            //       console.log("FormLog");
+            //    var x = document.getElementById("sideMenu");
+            //    var mainSection = form_id_name.getElementsByClassName("layout-main-section-wrapper")[0];
+            //    var pageTitle = form_id_name.getElementsByClassName("page-title")[0];
+            //    var navbar = form_id_name.getElementsByClassName("navbar")[0];
+            //    console.log('Sidebar display:', x.style.display);
+
+            //    if (x.style.display === "none") {
+            //       x.style.display = "block";
+            //       mainSection.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //       pageTitle.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //       navbar.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //    } else {
+            //       x.style.display = "none";
+            //       mainSection.style.marginLeft = "0";
+            //       pageTitle.style.marginLeft = "0";
+            //       navbar.style.marginLeft = "0";
+            //    }
+            //    },1000)
+            // }
+         
+
             function setRecordListContainerStyles() {
                 var recordListContainer = document.getElementById('recordListContainer');
                 var windowHeight = window.innerHeight;
-        
+
                 recordListContainer.style.setProperty('--container-height', windowHeight - 173 + 'px');
+                console.log(recordListContainer.style.setProperty('--container-height', windowHeight - 173 + 'px'));
             }
-        
+
             setRecordListContainerStyles();
 
 
-            function setMainmenuContainer() {
-                var mainMenuContainer = document.getElementById('main-menu');
-                var windowHeight = window.innerHeight;
-        
-                mainMenuContainer.style.setProperty('--container-height', windowHeight - 133 + 'px');
-            }
-        
-            setMainmenuContainer();
-
-            
         </script>
       <style>
-        
+         #sideMenu {
+            transition: display 0.3s ease;
+         }
+
+         .layout-main-section-wrapper,
+         .page-title {
+            transition: margin-left 0.1s ease;
+         }
+
+         .fa-chevron-left{
+            font-size: 11px;
+            margin-right: -2px;
+         }
+         .custom-menu-button{
+            outline: none !important;
+            border: none;
+            background: none;
+            font-size: 17px;
+         }
         /* li.listItem
          {
             animation: grow 1s ease;
@@ -348,6 +451,7 @@
             }
             } */
 
+
          #recordListContainer {
             overflow-y: auto;
             margin-bottom: 15px;
@@ -357,15 +461,6 @@
             display: block;
             height: var(--container-height);
          }
-         #main-menu {
-            overflow-y: auto;
-            /* overflow-y: scroll; */
-            --scrollbar-track-color: #fff;
-            --scrollbar-thumb-color: #c0c6cc;
-            display: contents;
-            height: var(--container-height);
-         }
-
             .sidebar-menu {
             margin-bottom: 0px !important;
             height: 100%;
@@ -421,7 +516,7 @@
             {% endif %}
             }
             .main-sidebar .sidebar-menu>li>a{
-               height: 48.49;
+               height: 49.49;
             {% if side_menu_settings.side_bar_text_color %}
             color:{{side_menu_settings.side_bar_text_color}} !important;
             {% endif %}
@@ -475,7 +570,7 @@
             {%else%}
             background-color: #fff;
             {%endif%}
-            border-right: 1px solid {{side_menu_settings.logo_bottom_border_color}};
+            border-right: 1px solid #ddd;
             }
          </style>
       </section>
