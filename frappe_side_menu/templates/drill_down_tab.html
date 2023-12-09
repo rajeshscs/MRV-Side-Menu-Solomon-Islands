@@ -1,9 +1,191 @@
 <div class="page-content"  style="width: {% if side_menu_type == 'Side Menu' %}80px{% else %}195px{% endif %};">
    <aside class="main-sidebar" style="z-index: 1040;">
       <section class="sidebar">
-         <style>
 
-            @import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+         <div class="menu-content">
+
+            {% if side_menu_settings.set_width %}
+            <ul class="sidebar-menu" id="sideMenu" style="overflow-x: hidden; min-width:150px !important; padding: 0; width: {{ side_menu_settings.set_width }}px !important; margin-top: 0 !important;">
+            {% endif %}
+            <li class="app-logo"style=" display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0;">
+               <a  class="logo" style="border-right: 1px solid #f4f5f6 !important; border-bottom: 1px solid #f4f5f6; max-width: 100% !important;">
+               {% if side_menu_settings.application_logo %}
+              
+               <img onclick="gotodashboard()" src="{{side_menu_settings.application_logo}}" style="height: 43px;">
+               <button class="sidebar-toggle-button" style="display: flex; margin: 10px 11px 0px -30px; transform: 1s; float: right; border: none; outline: none; background: none; font-size: 14px;" onclick="toggleSidebar()">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+              </button>
+               {% else %}
+               <img src="" alt="no-logo" style="height: 43px;">
+               {% endif %}
+               </a>
+            </li>
+            <div class="tabs" style="z-index: 100; position: sticky; top: 0;">
+               <button style="color: #000000;" id="menuTab" onclick="(function() { showMenu(); })()">
+               <i class="fa fa-bars"  style="font-size: 20px;"></i>
+               <a class="tabName" >Menu</a>
+            </button>
+               <button style="color: #000000;" id="filterTab"  onclick="(function() { showFilter(); })()">
+               <i class="fa fa-filter" style="font-size: 20px;"></i>
+               <a class="tabName">Filter</a>
+               </button>
+            </div>
+            <div class="search" style="padding: 8px;">
+               <input class="search-input" type="search" placeholder="Search filter" />
+             </div>
+             <div class="count">
+               <p style="color: green;"></p>
+             </div>
+             <!-- Add this button at the end of your HTML content -->
+
+             <!-- <div class="mainMenuList" style="overflow-y: scroll; height: calc(100vh - 132px);"> -->
+
+            {% for u in menulist %}
+               <li class="treeview drop-down" id="treeview">
+                  <a class="menu" onclick="toggleSubMenu(this)" style="max-width: 100%;">
+                     <span style="color: #1f272e; text-align: left !important; margin-top: 10px !important; letter-spacing: 0px !important;">
+                        <i class="{% if u.menu_icon %}{{u.menu_icon}}{% else %}fa fa-bar-chart{% endif %} navbar-icon" style="padding: 5px;"></i>
+                        {{ u.label }}
+                        <!-- Add a line break to place the right-angle arrow on the next line -->
+                        <i class="fa fa-angle-right" aria-hidden="true" style="float: right; font-size: 18px; margin-right: 10px;"></i>
+                     </span>
+                  </a>
+                  <ul class="submenu" style="height: auto !important; margin-left: 0 !important; line-height: 40px;">
+                     {% for k in u.submenu %}
+                        {% for z in k.sub_menu_list %}
+                           {% if z.is_static_link == 0 %}
+                           <li >
+                              <a class="routeLink" id="{{ z.route }}" onclick="go_to_page(this)">
+                              <i class="{% if z.sub_menu_icon %}{{z.sub_menu_icon}}{% else %}fa fa-fw fa-bar-chart-o{% endif %}"></i>
+                              {{ z.sub_menu_label }}
+                              </a>
+                           </li>
+                           {% else %}
+                           <li >
+                              <a  href="/app/{{ z.static_link }}" >
+                              <i class="{% if z.sub_menu_icon %}{{z.sub_menu_icon}}{% else %}fa fa-fw fa-bar-chart-o{% endif %}"></i>
+                              {{ z.sub_menu_label }}
+                              </a>
+                           </li>
+                           {% endif %}
+                        {% endfor %}
+                     {% endfor %}
+                  </ul>
+                  
+               </li>
+            {% endfor %}
+         <!-- </div> -->
+            <!-- Create a container for the list of record names -->
+            <div id="recordListContainer" style="overflow-y: scroll;" onresize="setRecordListContainerStyles();">
+               <ul id="recordList"></ul>
+           </div>
+
+
+         </div>
+
+        <script>
+         
+            var menuButton = document.createElement('button');
+            menuButton.innerHTML = '<i class="fa fa-bars"  onclick="toggleSidebar()"></i>';
+            menuButton.className = 'custom-menu-button';
+            var logoImage = document.createElement('img');
+            logoImage.src = '{{side_menu_settings.application_logo}}';
+            logoImage.style.height = '43px';
+            logoImage.style.margin = '0px -80px 0px 53px';
+
+            var container = document.querySelector('.container');
+            container.insertBefore(logoImage, container.firstChild);
+            container.insertBefore(menuButton, container.firstChild);
+            var is_loaded = 0;
+            var margin_left_value = 0;
+            
+            function toggleSidebar() {
+               var list_id_name = document.getElementById(`page-List/${frappe.get_route()[1]}/List`);
+               var form_id_name = document.getElementById(`page-${frappe.get_route()[1]}`);
+               var x = document.getElementById("sideMenu");
+               var mainSection = $(".layout-main-section-wrapper");
+
+               if (x.style.display === "none" || is_loaded === 0){
+                  x.style.display = "block";
+                  margin_left_value = "{{ side_menu_settings.set_width }}px";
+                  is_loaded = 1;
+               } else {
+                  x.style.display = "none";
+                  margin_left_value = "0px";
+                  is_loaded = 0;
+               }
+
+               $(".layout-main-section-wrapper").css("margin-left", margin_left_value);
+            }
+
+            // if((list_id_name.id).includes(`${frappe.get_route()[1]}`)){
+            //    var x = document.getElementById("sideMenu");
+            //    var mainSection = list_id_name.getElementsByClassName("layout-main-section-wrapper")[0];
+            //    var pageTitle = list_id_name.getElementsByClassName("page-title")[0];
+            //    var navbar = list_id_name.getElementsByClassName("navbar")[0];
+            //    console.log('Sidebar display:', x.style.display);
+
+            //    if (x.style.display === "none") {
+
+            //       x.style.display = "block";
+            //       margin_left_value ="{{ side_menu_settings.set_width }}px";
+            //       // mainSection.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //       // pageTitle.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //       // navbar.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //    } else {
+            //       x.style.display = "none";
+            //       is_loaded=1;
+            //       margin_left_value ="0px";
+            //       // mainSection.style.marginLeft = "0";
+            //       // pageTitle.style.marginLeft = "0";
+            //       // navbar.style.marginLeft = "0";
+            //    }
+            //    if(is_loaded==1){
+            //       mainSection.style.marginLeft = margin_left_value;
+            //    }
+               
+            // }
+            
+            // if((form_id_name.id).includes(frappe.get_route()[1])) {
+               
+            //    setTimeout(()=>{
+            //       console.log("FormLog");
+            //    var x = document.getElementById("sideMenu");
+            //    var mainSection = form_id_name.getElementsByClassName("layout-main-section-wrapper")[0];
+            //    var pageTitle = form_id_name.getElementsByClassName("page-title")[0];
+            //    var navbar = form_id_name.getElementsByClassName("navbar")[0];
+            //    console.log('Sidebar display:', x.style.display);
+
+            //    if (x.style.display === "none") {
+            //       x.style.display = "block";
+            //       mainSection.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //       pageTitle.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //       navbar.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+            //    } else {
+            //       x.style.display = "none";
+            //       mainSection.style.marginLeft = "0";
+            //       pageTitle.style.marginLeft = "0";
+            //       navbar.style.marginLeft = "0";
+            //    }
+            //    },1000)
+            // }
+         
+
+            function setRecordListContainerStyles() {
+                var recordListContainer = document.getElementById('recordListContainer');
+                var windowHeight = window.innerHeight;
+
+                recordListContainer.style.setProperty('--container-height', windowHeight - 183 + 'px');
+                console.log(recordListContainer.style.setProperty('--container-height', windowHeight - 183 + 'px'));
+            }
+
+            setRecordListContainerStyles();
+
+
+        </script>
+      <style>
+         
+         @import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
             p, a, h1,h2,h3,h4,h5,h6,li{
                font-family: Inter;
             }
@@ -230,191 +412,8 @@
                     row-gap: 15px;
                     align-items: center;
                     margin-left: 7%;
-                }
-
-         </style>
-         <div class="menu-content">
-
-            {% if side_menu_settings.set_width %}
-            <ul class="sidebar-menu" id="sideMenu" style="overflow-x: hidden; min-width:150px !important; padding: 0; width: {{ side_menu_settings.set_width }}px !important; margin-top: 0 !important;">
-            {% endif %}
-            <li class="app-logo"style=" display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0;">
-               <a  class="logo" style="border-right: 1px solid #f4f5f6 !important; border-bottom: 1px solid #f4f5f6; max-width: 100% !important;">
-               {% if side_menu_settings.application_logo %}
-              
-               <img onclick="gotodashboard()" src="{{side_menu_settings.application_logo}}" style="height: 43px;">
-               <button class="sidebar-toggle-button" style="display: flex; margin: 10px 11px 0px -30px; transform: 1s; float: right; border: none; outline: none; background: none; font-size: 14px;" onclick="toggleSidebar()">
-                  <svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-              </button>
-               {% else %}
-               <img src="" alt="no-logo" style="height: 43px;">
-               {% endif %}
-               </a>
-            </li>
-            <div class="tabs" style="z-index: 100; position: sticky; top: 0;">
-               <button style="color: #000000;" id="menuTab" onclick="(function() { showMenu(); })()">
-               <i class="fa fa-bars"  style="font-size: 20px;"></i>
-               <a class="tabName" >Menu</a>
-            </button>
-               <button style="color: #000000;" id="filterTab"  onclick="(function() { showFilter(); })()">
-               <i class="fa fa-filter" style="font-size: 20px;"></i>
-               <a class="tabName">Filter</a>
-               </button>
-            </div>
-            <div class="search" style="padding: 8px;">
-               <input class="search-input" type="search" placeholder="Search filter" />
-             </div>
-             <div class="count">
-               <p style="color: green;"></p>
-             </div>
-             <!-- Add this button at the end of your HTML content -->
-
-             <!-- <div class="mainMenuList" style="overflow-y: scroll; height: calc(100vh - 132px);"> -->
-
-            {% for u in menulist %}
-               <li class="treeview drop-down" id="treeview">
-                  <a class="menu" onclick="toggleSubMenu(this)" style="max-width: 100%;">
-                     <span style="color: #1f272e; text-align: left !important; margin-top: 10px !important; letter-spacing: 0px !important;">
-                        <i class="{% if u.menu_icon %}{{u.menu_icon}}{% else %}fa fa-bar-chart{% endif %} navbar-icon" style="padding: 5px;"></i>
-                        {{ u.label }}
-                        <!-- Add a line break to place the right-angle arrow on the next line -->
-                        <i class="fa fa-angle-right" aria-hidden="true" style="float: right; font-size: 18px; margin-right: 5px;"></i>
-                     </span>
-                  </a>
-                  <ul class="submenu" style="height: auto !important; margin-left: 0 !important; line-height: 40px;">
-                     {% for k in u.submenu %}
-                        {% for z in k.sub_menu_list %}
-                           {% if z.is_static_link == 0 %}
-                           <li >
-                              <a class="routeLink" id="{{ z.route }}" onclick="go_to_page(this)">
-                              <i class="{% if z.sub_menu_icon %}{{z.sub_menu_icon}}{% else %}fa fa-fw fa-bar-chart-o{% endif %}"></i>
-                              {{ z.sub_menu_label }}
-                              </a>
-                           </li>
-                           {% else %}
-                           <li >
-                              <a  href="/app/{{ z.static_link }}" >
-                              <i class="{% if z.sub_menu_icon %}{{z.sub_menu_icon}}{% else %}fa fa-fw fa-bar-chart-o{% endif %}"></i>
-                              {{ z.sub_menu_label }}
-                              </a>
-                           </li>
-                           {% endif %}
-                        {% endfor %}
-                     {% endfor %}
-                  </ul>
-                  
-               </li>
-            {% endfor %}
-         <!-- </div> -->
-            <!-- Create a container for the list of record names -->
-            <div id="recordListContainer" style="overflow-y: scroll;" onresize="setRecordListContainerStyles();">
-               <ul id="recordList"></ul>
-           </div>
-
-
-         </div>
-
-        <script>
-         
-            var menuButton = document.createElement('button');
-            menuButton.innerHTML = '<i class="fa fa-bars"  onclick="toggleSidebar()"></i>';
-            menuButton.className = 'custom-menu-button';
-            var logoImage = document.createElement('img');
-            logoImage.src = '{{side_menu_settings.application_logo}}';
-            logoImage.style.height = '43px';
-            logoImage.style.margin = '0px -80px 0px 53px';
-
-            var container = document.querySelector('.container');
-            container.insertBefore(logoImage, container.firstChild);
-            container.insertBefore(menuButton, container.firstChild);
-            var is_loaded = 0;
-            var margin_left_value = 0;
-            
-            function toggleSidebar() {
-               var list_id_name = document.getElementById(`page-List/${frappe.get_route()[1]}/List`);
-               var form_id_name = document.getElementById(`page-${frappe.get_route()[1]}`);
-               var x = document.getElementById("sideMenu");
-               var mainSection = $(".layout-main-section-wrapper");
-
-               if (x.style.display === "none" || is_loaded === 0){
-                  x.style.display = "block";
-                  margin_left_value = "{{ side_menu_settings.set_width }}px";
-                  is_loaded = 1;
-               } else {
-                  x.style.display = "none";
-                  margin_left_value = "0px";
-                  is_loaded = 0;
-               }
-
-               $(".layout-main-section-wrapper").css("margin-left", margin_left_value);
             }
 
-            // if((list_id_name.id).includes(`${frappe.get_route()[1]}`)){
-            //    var x = document.getElementById("sideMenu");
-            //    var mainSection = list_id_name.getElementsByClassName("layout-main-section-wrapper")[0];
-            //    var pageTitle = list_id_name.getElementsByClassName("page-title")[0];
-            //    var navbar = list_id_name.getElementsByClassName("navbar")[0];
-            //    console.log('Sidebar display:', x.style.display);
-
-            //    if (x.style.display === "none") {
-
-            //       x.style.display = "block";
-            //       margin_left_value ="{{ side_menu_settings.set_width }}px";
-            //       // mainSection.style.marginLeft = "{{ side_menu_settings.set_width }}px";
-            //       // pageTitle.style.marginLeft = "{{ side_menu_settings.set_width }}px";
-            //       // navbar.style.marginLeft = "{{ side_menu_settings.set_width }}px";
-            //    } else {
-            //       x.style.display = "none";
-            //       is_loaded=1;
-            //       margin_left_value ="0px";
-            //       // mainSection.style.marginLeft = "0";
-            //       // pageTitle.style.marginLeft = "0";
-            //       // navbar.style.marginLeft = "0";
-            //    }
-            //    if(is_loaded==1){
-            //       mainSection.style.marginLeft = margin_left_value;
-            //    }
-               
-            // }
-            
-            // if((form_id_name.id).includes(frappe.get_route()[1])) {
-               
-            //    setTimeout(()=>{
-            //       console.log("FormLog");
-            //    var x = document.getElementById("sideMenu");
-            //    var mainSection = form_id_name.getElementsByClassName("layout-main-section-wrapper")[0];
-            //    var pageTitle = form_id_name.getElementsByClassName("page-title")[0];
-            //    var navbar = form_id_name.getElementsByClassName("navbar")[0];
-            //    console.log('Sidebar display:', x.style.display);
-
-            //    if (x.style.display === "none") {
-            //       x.style.display = "block";
-            //       mainSection.style.marginLeft = "{{ side_menu_settings.set_width }}px";
-            //       pageTitle.style.marginLeft = "{{ side_menu_settings.set_width }}px";
-            //       navbar.style.marginLeft = "{{ side_menu_settings.set_width }}px";
-            //    } else {
-            //       x.style.display = "none";
-            //       mainSection.style.marginLeft = "0";
-            //       pageTitle.style.marginLeft = "0";
-            //       navbar.style.marginLeft = "0";
-            //    }
-            //    },1000)
-            // }
-         
-
-            function setRecordListContainerStyles() {
-                var recordListContainer = document.getElementById('recordListContainer');
-                var windowHeight = window.innerHeight;
-
-                recordListContainer.style.setProperty('--container-height', windowHeight - 173 + 'px');
-                console.log(recordListContainer.style.setProperty('--container-height', windowHeight - 173 + 'px'));
-            }
-
-            setRecordListContainerStyles();
-
-
-        </script>
-      <style>
          #sideMenu {
             transition: display 0.3s ease;
          }
