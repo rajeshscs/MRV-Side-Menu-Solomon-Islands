@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     $('[class="app-logo"]').css({
         "display": "block"
@@ -288,7 +287,7 @@ $(document).ready(function() {
                 }
     
                 const currentRoute = frappe.router.current_sub_path;
-                const parts = currentRoute.split('/');
+                // const parts = currentRoute.split('/');
                 const lastName = parts[parts.length - 1];
     
                 updateActiveRecord(lastName);
@@ -319,6 +318,7 @@ $(document).ready(function() {
 
 
     $(document).on("form-refresh", function(e, frm) {
+        
         // $('[id="filterTab"]').click()
         if(frm.meta.issingle != 1){
             frappe.call({
@@ -328,7 +328,6 @@ $(document).ready(function() {
                     if(msg == "Side Menu With Tab"){
                         hidemainMenu();
                     }
-                   
                 }
             });
             sideMenu_route = frappe.get_route()
@@ -504,7 +503,32 @@ $(window).ready(function(){
             }
         })
     });
+
 })
+
+
+// function toggleSidebar() {
+//     var x = document.getElementById("sideMenu");
+//     var mainSection = document.getElementsByClassName("layout-main-section-wrapper")[0];
+//     var pageTitle = document.getElementsByClassName("page-title")[0];
+//     var navbar = document.getElementsByClassName("navbar")[0];
+//     console.log('Sidebar display:', x.style.display);
+    
+//     if (x.style.display === "none") {
+//        x.style.display = "block";
+//        mainSection.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+//        pageTitle.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+//        // navbar.style.marginLeft = "{{ side_menu_settings.set_width }}px";
+//     } else  {
+//        x.style.display = "none";
+//        mainSection.style.marginLeft = "0";
+//        pageTitle.style.marginLeft = "0";
+//        navbar.style.marginLeft = "0";
+//     }
+//     }
+
+
+
 
 
 // frappe.pages.on('page-change', function(route) {
