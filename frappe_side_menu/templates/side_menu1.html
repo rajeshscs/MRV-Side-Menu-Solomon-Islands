@@ -108,7 +108,11 @@
             {%else%}
             <li>
                 <a class="menu" id="/app/{{u.route}}" onclick="go_to_page(this)">                         
-                    <i class="{%if u.menu_icon%}{{u.menu_icon}}{%else%}fa fa-address-card{%endif%} navbar-icon"></i>{% if center_menu==1 %}<br>  {% endif %}                     
+                    {% if u.icon_image %}
+                        <img src="{{ u.icon_image }}" alt="{{ u.label }}" class="navbar-image" style="width: 30px;">
+                    {% else %}
+                        <i class="{% if u.menu_icon %}{{ u.menu_icon }}{% else %}fa fa-bar-chart{% endif %} navbar-icon"></i>{% if center_menu == 1 %}<br />{% endif %}
+                    {% endif %}
                     <span style="font-size: 15px;">{{u.label}}</span>                     
                 </a>
             </li>
@@ -119,7 +123,11 @@
             {%if u.menu_type=="Report"%}
             <li>
                 <a class="menu" id="{{u.route}}" onclick="go_to_page(this)">                         
-                    <i class="{%if u.menu_icon%}{{u.menu_icon}}{%else%}fa fa-address-card{%endif%} navbar-icon"></i>{% if center_menu==1 %}<br>  {% endif %}                      
+                    {% if u.icon_image %}
+                        <img src="{{ u.icon_image }}" alt="{{ u.label }}" class="navbar-image" style="width: 30px;">
+                    {% else %}
+                        <i class="{% if u.menu_icon %}{{ u.menu_icon }}{% else %}fa fa-bar-chart{% endif %} navbar-icon"></i>{% if center_menu == 1 %}<br />{% endif %}
+                    {% endif %}
                     <span style="font-size: 15px;">{{u.label}}</span>                     
                 </a>
             </li>
@@ -128,7 +136,11 @@
             {%if u.menu_type=="Page"%}
             <li>
                 <a class="menu" id="/app/{{u.route}}" onclick="go_to_page(this)">                         
-                    <i class="{%if u.menu_icon%}{{u.menu_icon}}{%else%}fa fa-address-card{%endif%} navbar-icon"></i>{% if center_menu==1 %}<br>  {% endif %}                   
+                    {% if u.icon_image %}
+                        <img src="{{ u.icon_image }}" alt="{{ u.label }}" class="navbar-image" style="width: 30px;">
+                    {% else %}
+                        <i class="{% if u.menu_icon %}{{ u.menu_icon }}{% else %}fa fa-bar-chart{% endif %} navbar-icon"></i>{% if center_menu == 1 %}<br />{% endif %}
+                    {% endif %}
                     <span style="font-size: 15px;">{{u.label}}</span>                     
                 </a>
             </li>           
@@ -137,7 +149,11 @@
             {%else%}
             <li>
                 <a class="menu" href="{%if u.static_link%}{{u.static_link}}{%endif%}">                         
-                    <i class="{%if u.menu_icon%}{{u.menu_icon}}{%else%}fa fa-address-card{%endif%} navbar-icon"></i>{% if center_menu==1 %}<br>  {% endif %}                  
+                    {% if u.icon_image %}
+                        <img src="{{ u.icon_image }}" alt="{{ u.label }}" class="navbar-image" style="width: 30px;">
+                    {% else %}
+                        <i class="{% if u.menu_icon %}{{ u.menu_icon }}{% else %}fa fa-bar-chart{% endif %} navbar-icon"></i>{% if center_menu == 1 %}<br />{% endif %}
+                    {% endif %}
                     <span style="font-size: 15px;">{{u.label}}</span>                     
                 </a>
             </li>
