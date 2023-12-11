@@ -55,25 +55,27 @@
                      </span>
                   </a>
                   <ul class="submenu" style="height: auto !important; margin-left: 0 !important; line-height: 40px;">
-                     {% for k in u.submenu %}
-                        {% for z in k.sub_menu_list %}
-                           {% if z.is_static_link == 0 %}
-                           <li >
-                              <a class="routeLink" id="{{ z.route }}" onclick="go_to_page(this)">
-                              <i class="{% if z.sub_menu_icon %}{{z.sub_menu_icon}}{% else %}fa fa-fw fa-bar-chart-o{% endif %}"></i>
-                              {{ z.sub_menu_label }}
-                              </a>
-                           </li>
-                           {% else %}
-                           <li >
-                              <a  href="/app/{{ z.static_link }}" >
-                              <i class="{% if z.sub_menu_icon %}{{z.sub_menu_icon}}{% else %}fa fa-fw fa-bar-chart-o{% endif %}"></i>
-                              {{ z.sub_menu_label }}
-                              </a>
-                           </li>
-                           {% endif %}
+                     {% if u.submenu %}
+                        {% for k in u.submenu %}
+                           {% for z in k.sub_menu_list %}
+                              {% if z.is_static_link == 0 %}
+                              <li >
+                                 <a class="routeLink" id="{{ z.route }}" onclick="go_to_page(this)">
+                                 <i class="{% if z.sub_menu_icon %}{{z.sub_menu_icon}}{% else %}fa fa-fw fa-bar-chart-o{% endif %}"></i>
+                                 {{ z.sub_menu_label }}
+                                 </a>
+                              </li>
+                              {% else %}
+                              <li >
+                                 <a  href="/app/{{ z.static_link }}" >
+                                 <i class="{% if z.sub_menu_icon %}{{z.sub_menu_icon}}{% else %}fa fa-fw fa-bar-chart-o{% endif %}"></i>
+                                 {{ z.sub_menu_label }}
+                                 </a>
+                              </li>
+                              {% endif %}
+                           {% endfor %}
                         {% endfor %}
-                     {% endfor %}
+                     {% endif %}
                   </ul>
                   
                </li>

@@ -96,8 +96,12 @@
             {%if u.is_single_doc==0%}
             <li>
                 <a class="menu" id="/app/{{u.route}}" onclick="go_to_page(this)">                         
-                    <i class="{%if u.menu_icon%}{{u.menu_icon}}{%else%}fa fa-address-card{%endif%} navbar-icon"></i>{% if center_menu==1 %}<br>  {% endif %}                       
-                    <span style="font-size: 15px;" id="menu_text">{{u.label}}</span>                     
+                    {% if u.icon_image %}
+                        <img src="{{ u.icon_image }}" alt="{{ u.label }}" class="navbar-image" style="width: 30px;">
+                    {% else %}
+                        <i class="{% if u.menu_icon %}{{ u.menu_icon }}{% else %}fa fa-bar-chart{% endif %} navbar-icon"></i>{% if center_menu == 1 %}<br />{% endif %}
+                    {% endif %}
+                <span style="font-size: 15px;" id="menu_text">{{u.label}}</span>                     
                 </a>
             </li>
            
