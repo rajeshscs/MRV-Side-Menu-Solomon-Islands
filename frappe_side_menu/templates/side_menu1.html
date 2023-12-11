@@ -14,11 +14,14 @@
                {% if u.has_sub_menu==1 and u.has_sublist >= 1%}
                   <li class="treeview drop-down">
                     <a class="link menu" style="border-left-color: #fff !important; ">
-                        <i class="{%if u.menu_icon%}{{u.menu_icon}}{%else%}fa fa-bar-chart{%endif%} navbar-icon"></i> {% if center_menu==1 %}<br /> {% endif %}
-                        <span style="font-size: 15px;">{{u.label}}</span>
-                         
+                        {% if u.icon_image %}
+                            <img src="{{ u.icon_image }}" alt="{{ u.label }}" class="navbar-image" style="width: 30px;">
+                        {% else %}
+                            <i class="{% if u.menu_icon %}{{ u.menu_icon }}{% else %}fa fa-bar-chart{% endif %} navbar-icon"></i>{% if center_menu == 1 %}<br />{% endif %}
+                        {% endif %}
+                        <span style="font-size: 15px;">{{ u.label }}</span>
                     </a>
-                    <div class="side-menu">
+                <div class="side-menu">
                     <ul class="treeview-menu" id="submenu-tree" style="height: 850px !important;">
                    
                         {% if user_info %}

@@ -32,7 +32,7 @@ on_session_creation  = "frappe_side_menu.frappe_side_menu.api.set_default_route"
 
 # include js in doctype views
 # doctype_js = {"*" : "public/js/detail.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {"Project" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 

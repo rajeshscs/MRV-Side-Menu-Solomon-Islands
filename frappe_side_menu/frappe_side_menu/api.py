@@ -49,7 +49,7 @@ def get_menulist():
 	if not active_domain:
 		active_domain = '""'
 	query = """SELECT name, label as module_name, label, has_sub_menu, is_static_link, 
-				static_link, menu_icon, menu_type, menu_doc, is_single_doc 
+				static_link, menu_icon, menu_type, menu_doc, is_single_doc, icon_image
 				FROM `tabSide Menu` WHERE disable=0 
 				order by sequence_number asc""".format(active_domain=active_domain,permitted_docs=permitted_docs)
 	menu = frappe.db.sql(query, as_dict=1)

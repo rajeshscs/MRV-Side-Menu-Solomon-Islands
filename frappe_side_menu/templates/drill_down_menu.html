@@ -62,9 +62,13 @@
                     <li class="treeview drop-down">
                         <a class="menu" onclick="toggleSubMenu(this)" style="max-width: 100%;">
                             <span style="font-size: 15px; text-align: left !important;">
-                                <i class="{% if u.menu_icon %}{{u.menu_icon}}{% else %}fa fa-bar-chart{% endif %} navbar-icon" style="padding: 5px;"></i>
-                                {{ u.label }}
-                                <i class="fa fa-angle-right" aria-hidden="true" style="float: right; font-size: 18px; margin-right: 5px;"></i>
+                                {% if u.icon_image %}
+                                <img src="{{ u.icon_image }}" alt="{{ u.label }}" class="navbar-image" style="width: 24px; margin: 0px 5px 0px 5px;">
+                                {% else %}
+                                <i class="{% if u.menu_icon %}{{ u.menu_icon }}{% else %}fa fa-bar-chart{% endif %} navbar-icon"></i>{% if center_menu == 1 %}<br />{% endif %}
+                            {% endif %}
+                                    {{ u.label }}
+                                <i class="fa fa-angle-right" aria-hidden="true" style="float: right; font-size: 18px; margin: 0px 5px 0px 5px;"></i>
                             </span>
                         </a>
                         <ul class="submenu" style="height: auto !important; margin-left: 0 !important; line-height: 40px;">

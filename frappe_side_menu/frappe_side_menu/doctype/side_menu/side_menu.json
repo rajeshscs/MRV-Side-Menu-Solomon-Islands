@@ -17,6 +17,7 @@
   "is_single_doc",
   "static_link",
   "menu_doc",
+  "icon_image",
   "menu_icon",
   "sequence_number",
   "sub_menus_section",
@@ -100,11 +101,16 @@
    "fieldname": "is_single_doc",
    "fieldtype": "Check",
    "label": "Is Single Doc"
+  },
+  {
+   "fieldname": "icon_image",
+   "fieldtype": "Attach Image",
+   "label": "Icon Image"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-24 16:57:13.141824",
+ "modified": "2023-12-11 11:28:55.707514",
  "modified_by": "Administrator",
  "module": "Frappe Side Menu",
  "name": "Side Menu",

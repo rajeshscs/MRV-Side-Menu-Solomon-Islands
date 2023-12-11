@@ -44,7 +44,11 @@
                <li class="treeview drop-down" id="treeview">
                   <a class="menu" onclick="toggleSubMenu(this)" style="max-width: 100%;">
                      <span style="color: #1f272e; text-align: left !important; margin-top: 10px !important; letter-spacing: 0px !important;">
-                        <i class="{% if u.menu_icon %}{{u.menu_icon}}{% else %}fa fa-bar-chart{% endif %} navbar-icon" style="padding: 5px;"></i>
+                        {% if u.icon_image %}
+                            <img src="{{ u.icon_image }}" alt="{{ u.label }}" class="navbar-image" style="width: 24px; margin: 0px 5px 0px 5px;">
+                        {% else %}
+                            <i style="margin: 0px 5px 0px 5px;" class="{% if u.menu_icon %}{{ u.menu_icon }}{% else %}fa fa-bar-chart{% endif %} navbar-icon"></i>{% if center_menu == 1 %}<br />{% endif %}
+                        {% endif %}
                         {{ u.label }}
                         <!-- Add a line break to place the right-angle arrow on the next line -->
                         <i class="fa fa-angle-right" aria-hidden="true" style="float: right; font-size: 18px; margin-right: 10px;"></i>
