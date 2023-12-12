@@ -13,7 +13,7 @@
             {%for u in menulist%}
                {% if u.has_sub_menu==1 and u.has_sublist >= 1%}
                   <li class="treeview drop-down">
-                    <a class="link menu" style="border-left-color: #fff !important; ">
+                    <a class="link menu" style="border-left-color: #fff !important;">
                         {% if u.icon_image %}
                             <img src="{{ u.icon_image }}" alt="{{ u.label }}" class="navbar-image" style="width: 30px;">
                         {% else %}
@@ -22,10 +22,10 @@
                         <span style="font-size: 15px;">{{ u.label }}</span>
                     </a>
                 <div class="side-menu">
-                    <ul class="treeview-menu" id="submenu-tree" style="height: 850px !important;">
+                    <ul class="treeview-menu" id="submenu-tree" style="height: 100vh !important;">
                    
                         {% if user_info %}
-                        <li class="user-info">
+                        <li class="user-info" style="z-index: 100; position: sticky; top: 0;">
                             <div class="uname">{{user_info.full_name}}</div>
                             <div class="email">{{user_info.email}}</div>
                         </li>
@@ -126,7 +126,7 @@
             {%else%}
             
             {% if u.is_static_link==0%}
-            
+
             {%if u.menu_type=="DocType"%}
             {%if u.is_single_doc==0%}
             <li>
@@ -183,7 +183,7 @@
             {% endif %}
             {%else%}
             <li>
-                <a class="menu" href="{%if u.static_link%}{{u.static_link}}{%endif%}">                         
+                <a class="menu" href="/app/{%if u.static_link%}{{u.static_link}}{%endif%}">                         
                     {% if u.icon_image %}
                         <img src="{{ u.icon_image }}" alt="{{ u.label }}" class="navbar-image" style="width: 30px;">
                     {% else %}
@@ -245,6 +245,9 @@
                 {% endif %}
             }
             .main-sidebar .sidebar-menu::-webkit-scrollbar {
+                display: none;
+            }
+            .treeview-menu::-webkit-scrollbar {
                 display: none;
             }
             .main-sidebar .sidebar-menu>li:not(.app-logo):hover>a,.user-info{
