@@ -7,7 +7,7 @@ $(document).ready(function() {
     let doctype = '';
     let currentPage = null;
     let isFetching = false;
-    let records = [];
+    let records = []; 
     let start = 0; 
 
     frappe.call({
@@ -15,7 +15,6 @@ $(document).ready(function() {
         args: {},
         async: false,
         callback: function(r) {
-            console.log("method", r);
             let roles = '';
             if ($.inArray('System Manager', frappe.user_roles) != -1)
                 roles = 'Admin';
@@ -30,7 +29,6 @@ $(document).ready(function() {
             $('body').prepend(r.message.template_html);
         }
     });
-
 
     const sidebarMenuItems = document.querySelectorAll('.treeview');
     const searchInput = document.querySelector('.search-input');

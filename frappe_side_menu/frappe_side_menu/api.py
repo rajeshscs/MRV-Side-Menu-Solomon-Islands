@@ -50,7 +50,7 @@ def get_menulist():
 		active_domain = '""'
 	query = """SELECT name, label as module_name, label, has_sub_menu, is_static_link, 
 				static_link, menu_icon, menu_type, menu_doc, is_single_doc, icon_image
-				FROM `tabSide Menu` WHERE disable=0 
+				FROM `tabSide Menu` WHERE disable=0  
 				order by sequence_number asc""".format(active_domain=active_domain,permitted_docs=permitted_docs)
 	menu = frappe.db.sql(query, as_dict=1)
 	menu_items_list = []
@@ -61,7 +61,7 @@ def get_menulist():
 			if n.has_sub_menu:
 				n.submenu = frappe.db.sql('''SELECT distinct sub_menu_title from `tabSub Menu` where parent=%s and disable=0 group by sub_menu_title order by idx asc''',n.name,as_dict=1)
 				for k in n.submenu:
-					subquery = '''SELECT s.sub_menu_type,s.sub_menu_doc,s.sub_menu_label,s.report_type,s.sub_menu_icon,s.is_single,s.is_static_link,s.static_link 
+					subquery = '''SELECT s.sub_menu_type,s.sub_menu_doc,s.sub_menu_label,s.report_type,s.sub_menu_icon,s.sub_menu_image_icon,s.is_single,s.is_static_link,s.static_link 
 								FROM `tabSub Menu` s where s.parent=%s and s.disable=0 and s.sub_menu_title=%s 
 								and (case when s.is_static_link=0 and s.sub_menu_type="DocType" then s.sub_menu_doc in ({permitted_docs}) else 1=1 end) 
 								and (case when s.is_static_link=0 and s.sub_menu_type="Report" then s.sub_menu_doc in ({permitted_reports}) else 1=1 end) 

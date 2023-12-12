@@ -56,26 +56,40 @@
                   </a>
                   <ul class="submenu" style="height: auto !important; margin-left: 0 !important; line-height: 40px;">
                      {% if u.submenu %}
-                        {% for k in u.submenu %}
-                           {% for z in k.sub_menu_list %}
-                              {% if z.is_static_link == 0 %}
-                              <li >
-                                 <a class="routeLink" id="{{ z.route }}" onclick="go_to_page(this)">
-                                 <i class="{% if z.sub_menu_icon %}{{z.sub_menu_icon}}{% else %}fa fa-fw fa-bar-chart-o{% endif %}"></i>
-                                 {{ z.sub_menu_label }}
-                                 </a>
-                              </li>
-                              {% else %}
-                              <li >
-                                 <a  href="/app/{{ z.static_link }}" >
-                                 <i class="{% if z.sub_menu_icon %}{{z.sub_menu_icon}}{% else %}fa fa-fw fa-bar-chart-o{% endif %}"></i>
-                                 {{ z.sub_menu_label }}
-                                 </a>
-                              </li>
-                              {% endif %}
-                           {% endfor %}
+
+                     {% for k in u.submenu %}
+                        {% for z in k.sub_menu_list %}
+                           {%if z.sub_menu_type=="DocType"%}
+                                 {% if z.is_static_link == 0 %}
+                                 <li >
+                                    <a class="routeLink" id="{{ z.route }}" onclick="go_to_page(this)">
+                                       {% if z.sub_menu_image_icon %}
+                                       <img src="{{z.sub_menu_image_icon}}" alt="Mitigations" class="navbar-image" style="width: 22px;">
+                                       {% else %}
+                                           <i class="{% if z.sub_menu_icon %}{{ z.sub_menu_icon }}{% else %}fa fa-bar-chart{% endif %} navbar-icon"></i>
+                                           {% if center_menu == 1 %}<br />{% endif %}
+                                       {% endif %}
+                                       {{ z.sub_menu_label }}
+                                                           </a>
+                                 </li>
+                                 {% else %}
+                                 <li>
+                                    <a href="/app/{{ z.static_link }}" >
+                                       {% if z.sub_menu_image_icon %}
+                                          <img src="{{ z.sub_menu_image_icon }}" style="width: 30px;">
+                                       {% else %}
+                                          <i class="{% if z.sub_menu_icon %}{{ z.sub_menu_icon }}{% else %}fa fa-bar-chart{% endif %} navbar-icon"></i>
+                                          {% if center_menu == 1 %}<br />{% endif %}
+                                       {% endif %}
+                                       {{ z.sub_menu_label }}
+                                    </a>
+                                 </li>
+                                 {% endif %}
+                           {% endif %}
                         {% endfor %}
+                     {% endfor %}
                      {% endif %}
+                     
                   </ul>
                   
                </li>

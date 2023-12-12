@@ -17,7 +17,7 @@
 .main-sidebar .sidebar-menu {
     background: #267db9 !important;
     font-family: 'Poppins', sans-serif;
-    left: 0 !important;    z-index: 999999;
+    left: 0 !important;    z-index: 2000;
 }
 .main-sidebar .sidebar-menu>li {
     position: relative;
@@ -66,7 +66,7 @@ li.treeview.drop-down:hover .treeview-menu{
     width: 265px;
     top: 0px !important;
     position: fixed !important;
-    height: 100%;z-index: 99999999;overflow-y: auto;
+    height: 100%;z-index: 2000;overflow-y: auto;
     background: #fff;
 }.treeview-menu .user-info {
     padding: 15px;
