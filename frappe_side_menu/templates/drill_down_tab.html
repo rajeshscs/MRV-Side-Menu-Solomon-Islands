@@ -132,11 +132,13 @@
                } else {
                   x.style.display = "none";
                   margin_left_value = "0px";
+                  // awsbar = "110px";
                   is_loaded = 0;
                }
 
                $(".layout-main-section-wrapper").css("margin-left", margin_left_value);
                $(".page-title").css("margin-left", margin_left_value);
+               // $(".search-bar").css("max-width", awsbar);
 
             }
 
@@ -206,7 +208,12 @@
 
         </script>
       <style>
-         
+         @media only screen and (max-width: 768px) {
+            .search-bar {
+               max-width: 110px; 
+            }
+         }
+
          @import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
             p, a, h1,h2,h3,h4,h5,h6,li{
                font-family: Inter;
