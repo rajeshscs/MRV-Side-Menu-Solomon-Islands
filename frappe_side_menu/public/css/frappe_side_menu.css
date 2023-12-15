@@ -69,7 +69,7 @@ li.treeview.drop-down:hover .treeview-menu{
     height: 100%;z-index: 2000;overflow-y: auto;
     background: #fff;
 }.treeview-menu .user-info {
-    padding: 15px;
+    padding: 10px;
     background: #184482;
     /* background: repeating-linear-gradient(45deg,#184482,#184482 12px,#267db9 10px,#267db9 15px); */
     color: #fff;
