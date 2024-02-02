@@ -38,7 +38,6 @@
                          {%  for z in k.sub_menu_list %}
                         {% if z.is_static_link==0%}
                         {%if z.sub_menu_type=="Page"%}
-                        
                         <li>
                             <a id="/app/{{ z.route }}" onclick="go_to_page(this)">
                                 {% if z.sub_menu_image_icon %}
@@ -51,6 +50,7 @@
                             </a>
                         </li>
                         {% endif %}
+                        
                         {%if z.sub_menu_type=="DocType"%}
                         {%if z.is_single==0%}
                         <li> 
@@ -239,7 +239,7 @@
                 {% endif %}
             }
             .main-sidebar .sidebar-menu{
-                overflow-y: scroll;
+                overflow-y: auto;
                 {% if side_menu_settings.side_bar_background_color %}
                     background:{{side_menu_settings.side_bar_background_color}} !important;
                 {% endif %}

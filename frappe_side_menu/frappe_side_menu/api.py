@@ -97,18 +97,23 @@ def get_menulist():
 		if x.menu_type=="Page":
 			if x.is_static_link:
 				x.route = x.menu_doc.replace(" ", "-").lower()
+			else:
+				x.route = x.menu_doc.replace(" ", "-").lower()
 		if x.menu_type=="Report":
 			x.route = "query-report/"+x.menu_doc
 		if x.has_sub_menu:
 			for mg in x.submenu:
 				for m in mg.sub_menu_list:
-					 if m.sub_menu_type=="DocType":
-					 	m.route = m.sub_menu_doc.replace(" ", "-").lower()
-					 if m.sub_menu_type=="Page":
-					 	if m.is_static_link:
-					 		m.route = m.sub_menu_doc.replace(" ", "-").lower()
-					 if m.sub_menu_type=="Report":
-					 	m.route = "query-report/"+m.sub_menu_doc
+					if m.sub_menu_type=="DocType":
+						m.route = m.sub_menu_doc.replace(" ", "-").lower()
+					if m.sub_menu_type=="Page":
+						if m.is_static_link:
+							m.route = m.sub_menu_doc.replace(" ", "-").lower()
+						else:
+							m.route = m.sub_menu_doc.replace(" ", "-").lower()
+					if m.sub_menu_type=="Report":
+						m.route = "query-report/"+m.sub_menu_doc
+	frappe.log_error("menus",menu_items_list)
 	side_menu_type = frappe.db.get_single_value("Side Menu Settings","select_side_menu_type")
 	if side_menu_type == 'Side Menu':
 		side_menu_settings = frappe.get_single('Side Menu Settings')
@@ -152,12 +157,12 @@ def get_permitted_pages_reports(role, parenttype):
 # Kishore
 @frappe.whitelist(allow_guest=True)
 def get_all_records(doctype, limit_start=0, limit_page_length=10):
-    try:
-        data = frappe.get_list(doctype, fields=["*"], start=limit_start, page_length=limit_page_length)
-        return data
-    except Exception as e:
-        # frappe.log_error(f"Error in get_all_records for {doctype}", e)
-        return []
+	try:
+		data = frappe.get_list(doctype, fields=["*"], start=limit_start, page_length=limit_page_length)
+		return data
+	except Exception as e:
+		# frappe.log_error(f"Error in get_all_records for {doctype}", e)
+		return []
 
 @frappe.whitelist(allow_guest=True)
 def get_list():
