@@ -6,7 +6,7 @@
     margin-left: 195px !important;
 }
 
-.col-lg-2.layout-side-section,.page-title .sidebar-toggle-btn{
+.col-lg-2.layout-side-section,.page-title .sidebar-toggle-btn{  
     display: none;
 }
 .container-xl, .container-lg, .container-md, .container-sm, .container {
@@ -54,7 +54,7 @@
     padding: 0;
     margin: 0;
     padding-left: 0px;
-    box-shadow: 3px 0px 5px #ddd;
+    box-shadow: rgba(0, 0, 0, .05) 0px 0.5px 0px 0px;
 }
 li.treeview.drop-down:hover .treeview-menu{
     display: block;

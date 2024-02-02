@@ -1,7 +1,7 @@
 <aside class="main-sidebar" style="z-index: 1040;">
     <section class="sidebar">   
         <ul class="sidebar-menu"  style="margin-bottom: 0px !important; left: -40px !important; height: 100%; position: fixed;min-width: 95px !important;">
-            <li class="app-logo" style="box-shadow: 4px 0px 5px -1px #9d9fa2; display: block; width: 100% !important; overflow: hidden; z-index: 100; position: sticky; top: 0;">
+            <li class="app-logo" style="box-shadow: 4px 0px 5px -1px #9d9fa2; display: block; width: 100% !important; overflow: hidden; z-index: 100; border: none; position: sticky; top: 0;">
                 <a onclick="gotodashboard()" class="logo" style="width: 95px; padding: 8.9px 0px;"> 
                     {% if side_menu_settings.application_logo %}
                         <img src="{{side_menu_settings.application_logo}}" style="height:42px;">
@@ -237,6 +237,16 @@
                 {% if side_menu_settings.logo_bottom_border_color %}
                     /* border-bottom:1px solid {{side_menu_settings.logo_bottom_border_color}}; */
                 {% endif %}
+            }
+            .app-logo{
+                box-shadow: rgba(0, 0, 0, .08) 0px 0px 0px 1px;
+                
+            }
+            .main-sidebar .sidebar-menu .treeview-menu{
+                box-shadow: rgba(0, 0, 0, .05) 0px 0.5px 0px 0px;
+            }
+            .main-sidebar .sidebar-menu{
+                box-shadow:  rgba(0, 0, 0, .05) 0px 2px 4px 0px;
             }
             .main-sidebar .sidebar-menu{
                 overflow-y: auto;
