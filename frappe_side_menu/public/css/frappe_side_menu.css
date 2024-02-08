@@ -29,7 +29,7 @@
     position: relative;
 }
 .main-sidebar .sidebar-menu>li>a {
-    padding: 7px 0px;
+    padding: 10px 0px;
     display: block;
     color: #fff;
     text-align: center;
@@ -37,7 +37,7 @@
     max-width: 95px;
 }
 .main-sidebar .sidebar-menu > li > a span {
-    font-size: 11px !important;
+    font-size: 12px !important;
     font-weight: 500;
     /* text-overflow: ellipsis; */
     overflow: hidden;
@@ -55,6 +55,7 @@
     margin: 0;
     padding-left: 0px;
     box-shadow: rgba(0, 0, 0, .05) 0px 0.5px 0px 0px;
+    border-right: 1px solid #f4f5f6;
 }
 li.treeview.drop-down:hover .treeview-menu{
     display: block;
