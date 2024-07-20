@@ -332,7 +332,18 @@
                     {%endif%}
                     border-right: 1px solid {{side_menu_settings.logo_bottom_border_color}};
                   }
+                  
         </style>
+        <script>
+            $(".sidebar-menu .menu").on("mouseenter",function(){
+                if($(this).next().find('.treeview-menu').css('display') == "block"){
+                    $("ul.sidebar-menu").append("<style>.sidebar-menu{scrollbar-width:none !important;}</style>")
+                }
+                else{
+                    $("ul.sidebar-menu").append("<style>.sidebar-menu{scrollbar-width:thin !important;}</style>")
+                }
+            })
+        </script>
     </section>
     <!-- /.sidebar -->
 </aside>

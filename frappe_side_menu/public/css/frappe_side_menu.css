@@ -1,9 +1,12 @@
 .main-section .navbar.navbar-expand.sticky-top .container .navbar-brand.navbar-home{
     display: none !important;
+    display:none;
+    
 }
 
 .main-section .navbar.navbar-expand.sticky-top .container #navbar-breadcrumbs{
     margin-left: 195px !important;
+    display: none !important;
 }
 
 .col-lg-2.layout-side-section,.page-title .sidebar-toggle-btn{  
@@ -29,7 +32,7 @@
     position: relative;
 }
 .main-sidebar .sidebar-menu>li>a {
-    padding: 10px 0px;
+    padding: 10px 0px 10px 0px;
     display: block;
     color: #fff;
     text-align: center;
@@ -59,6 +62,7 @@
 }
 li.treeview.drop-down:hover .treeview-menu{
     display: block;
+    position: fixed !important;
 }
 .treeview-menu {
     margin-left: 1px !important;
@@ -67,7 +71,9 @@ li.treeview.drop-down:hover .treeview-menu{
     width: 265px;
     top: 0px !important;
     position: fixed !important;
-    height: 100%;z-index: 2000;overflow-y: auto;
+    height: 100%;
+    z-index: 2000;
+    overflow-y: auto;
     background: #fff;
 }.treeview-menu .user-info {
     padding: 9px;

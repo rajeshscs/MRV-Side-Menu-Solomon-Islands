@@ -113,7 +113,6 @@ def get_menulist():
 							m.route = m.sub_menu_doc.replace(" ", "-").lower()
 					if m.sub_menu_type=="Report":
 						m.route = "query-report/"+m.sub_menu_doc
-	frappe.log_error("menus",menu_items_list)
 	side_menu_type = frappe.db.get_single_value("Side Menu Settings","select_side_menu_type")
 	if side_menu_type == 'Side Menu':
 		side_menu_settings = frappe.get_single('Side Menu Settings')
